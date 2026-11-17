@@ -195,6 +195,57 @@
     success.focus();
   });
 
+  /* ---------- Instagram: latest posts ---------- */
+  /*
+   * Instagram has no public, key-free API, so a static site needs a feed service.
+   * Set INSTAGRAM_FEED_URL to a JSON feed (e.g. a free Behold.so feed connected to
+   * @roma_customspecialties) and the six newest posts replace the placeholder tiles.
+   * Left empty, or if the feed fails, the placeholder tiles stay as they are.
+   */
+  const INSTAGRAM_FEED_URL = "";
+  const INSTAGRAM_PROFILE = "https://www.instagram.com/roma_customspecialties/";
+  const instaGrid = $("#instaGrid");
+
+  const renderInstagram = (posts) => {
+    const items = posts
+      .map((p) => ({
+        href: p.permalink || INSTAGRAM_PROFILE,
+        src: (p.sizes && p.sizes.medium && p.sizes.medium.mediaUrl) ||
+             (p.mediaType === "VIDEO" ? p.thumbnailUrl : p.mediaUrl),
+        caption: (p.prunedCaption || p.caption || "").trim(),
+      }))
+      .filter((p) => p.src)
+      .slice(0, 6);
+    if (!items.length) return;
+
+    instaGrid.replaceChildren(...items.map((item) => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.className = "insta-tile";
+      a.href = item.href;
+      a.target = "_blank";
+      a.rel = "noopener";
+      const img = document.createElement("img");
+      img.src = item.src;
+      img.alt = item.caption ? item.caption.slice(0, 140) : "Instagram post from Roma Custom Specialties";
+      img.width = 600; img.height = 600;
+      img.loading = "lazy";
+      const overlay = document.createElement("span");
+      overlay.className = "insta-tile-overlay";
+      overlay.innerHTML = '<svg aria-hidden="true"><use href="#i-instagram" /></svg><span class="visually-hidden">View on Instagram</span>';
+      a.append(img, overlay);
+      li.append(a);
+      return li;
+    }));
+  };
+
+  if (instaGrid && INSTAGRAM_FEED_URL) {
+    fetch(INSTAGRAM_FEED_URL)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((data) => renderInstagram(Array.isArray(data) ? data : data.posts || []))
+      .catch(() => { /* keep placeholder tiles */ });
+  }
+
   /* ---------- Footer year in Roman numerals ---------- */
   const toRoman = (num) => {
     const map = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"], [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];

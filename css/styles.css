@@ -472,6 +472,34 @@ body.menu-open .site-header { z-index: 120; background: transparent; border-bott
 .review-card footer strong { font-family: var(--font-display); font-weight: 600; letter-spacing: .08em; color: var(--gold-champagne); }
 .review-card footer span { font-size: var(--fs-xs); color: var(--on-dark-soft); letter-spacing: .04em; }
 
+/* ---------- 13a. Instagram ---------- */
+.insta-head-aside { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-2); max-width: 380px; }
+.insta-head-aside .section-intro { margin: 0; }
+.insta-head-aside .text-link svg { width: 18px; height: 18px; }
+.insta-head-aside .text-link:hover svg { transform: none; }
+
+.insta-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--s-2); }
+.insta-tile {
+  position: relative; display: block; aspect-ratio: 1; overflow: hidden;
+  border-radius: var(--radius); background: var(--parchment); box-shadow: var(--shadow-sm);
+}
+.insta-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease); }
+.insta-tile::after {
+  content: ""; position: absolute; inset: 8px; border: 1px solid rgba(232,207,138,0); transition: border-color .4s; pointer-events: none;
+}
+.insta-tile-overlay {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  background: linear-gradient(160deg, rgba(92,15,30,.55), rgba(42,7,16,.8));
+  color: var(--gold-champagne); opacity: 0; transition: opacity .4s var(--ease);
+}
+.insta-tile-overlay svg { width: 30px; height: 30px; transform: scale(.85); transition: transform .4s var(--ease); }
+.insta-tile:hover img, .insta-tile:focus-visible img { transform: scale(1.06); }
+.insta-tile:hover::after, .insta-tile:focus-visible::after { border-color: rgba(232,207,138,.8); }
+.insta-tile:hover .insta-tile-overlay, .insta-tile:focus-visible .insta-tile-overlay { opacity: 1; }
+.insta-tile:hover .insta-tile-overlay svg, .insta-tile:focus-visible .insta-tile-overlay svg { transform: none; }
+
+.insta-cta { margin-top: var(--s-6); text-align: center; }
+
 /* ---------- 14. Contact ---------- */
 .contact-grid { display: grid; grid-template-columns: 5fr 6fr; gap: clamp(2.5rem, 2rem + 4vw, 5rem); align-items: stretch; }
 .contact-info > p:not(.section-label) { color: var(--ink-soft); }
@@ -588,6 +616,7 @@ body.menu-open .site-header { z-index: 120; background: transparent; border-bott
 @media (max-width: 1100px) {
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .reviews-track { grid-template-columns: repeat(2, 1fr); }
+  .insta-grid { grid-template-columns: repeat(3, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 960px) {
@@ -612,6 +641,7 @@ body.menu-open .site-header { z-index: 120; background: transparent; border-bott
   .services-grid, .pillars, .process-steps { grid-template-columns: 1fr; }
   .service-card { max-width: 420px; margin-inline: auto; width: 100%; }
   .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 180px; }
+  .insta-grid { grid-template-columns: repeat(2, 1fr); gap: var(--s-1); }
   .reviews-track {
     display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: var(--s-2);
     margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) var(--s-2);

@@ -51,6 +51,7 @@ Fluid scale (`clamp()`): `--fs-xs` → `--fs-sm` → `--fs-base` → `--fs-lg` �
 - `.section` + `--parchment` / `--stone` / `--wine` / `--burgundy`
 - `.section-head` (`--center` / `--split`), `.section-label`, `.section-title`, `.section-intro`
 - `.service-card`, `.pillar`, `.step`, `.review-card`, `.gallery-item` + lightbox
+- `.insta-grid` / `.insta-tile` (square Instagram tiles with gold hairline + icon overlay on hover)
 - `.field` floating-label inputs with inline validation (`.is-invalid`, `.field-error`)
 - `.reveal` scroll-in animation (staggered automatically; disabled under `prefers-reduced-motion`)
 
@@ -59,4 +60,4 @@ Fluid scale (`clamp()`): `--fs-xs` → `--fs-sm` → `--fs-base` → `--fs-lg` �
 2. Replace the **sample testimonials and 5.0 rating** with real, verifiable reviews.
 3. Swap Unsplash placeholder photos for Roma's own project photography.
 4. Connect the quote form to a real endpoint (Formspree, Netlify Forms, or a backend). See `js/main.js`.
-5. Add the founder's name to the quote in the Company section.
+5. Instagram section: set `INSTAGRAM_FEED_URL` in `js/main.js` (e.g. a Behold.so feed) to show the latest posts; until then it shows placeholder tiles linking to @roma_customspecialties.
